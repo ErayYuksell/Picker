@@ -1,37 +1,59 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
+[Serializable]
+public class BallZone
+{
+    public Animator animator;
+    public TextMeshProUGUI numberText;
+    public int ballToThrow;
+    public GameObject[] phaseBalls;
+}
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] GameObject player;
-    [SerializeField] bool playerState;
-    void Start()
-    {
-        playerState = true;
-    }
+    public static GameManager Instance;
+    int NumberOfBallScored = 0;
+    [SerializeField] public List<BallZone> BallZones = new List<BallZone>();
 
-
-    void Update()
+    private void Awake()
     {
-        if (playerState)
+        if (Instance == null)
         {
-            player.transform.position += player.transform.forward * 5f * Time.deltaTime;
-            if (Time.timeScale != 0)
-            {
-                if (Input.GetKey(KeyCode.A))
-                {
-                    player.transform.position = Vector3.Lerp(player.transform.position, new Vector3(player.transform.position.x - 1f, player.transform.position.y, player.transform.position.z), 0.08f);
-                }
-                if (Input.GetKey(KeyCode.D))
-                {
-                    player.transform.position = Vector3.Lerp(player.transform.position, new Vector3(player.transform.position.x + 1f, player.transform.position.y, player.transform.position.z), 0.08f);
-                }
-            }
+            Instance = this;
+        }
+        else
+        {
+            Destroy(this);
         }
     }
-    public void BoundryActive()
+    void Start()
     {
-        playerState = false;
+        BallZones[0].numberText.text = NumberOfBallScored + "/" + BallZones[0].ballToThrow;
     }
+
+    public void BallCountAndWrite()
+    {
+        NumberOfBallScored += 1;
+        BallZones[0].numberText.text = NumberOfBallScored + "/" + BallZones[0].ballToThrow;
+    }
+    public void PhaseControl()
+    {
+        if (NumberOfBallScored >= BallZones[0].ballToThrow)
+        {
+            Debug.Log("Falan true");
+
+            foreach (var item in BallZones[0].phaseBalls)
+            {
+                item.SetActive(false);
+            }
+        }
+        else
+        {
+            Debug.Log("Falan else");
+        }
+    }
+
 }

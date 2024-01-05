@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Messenger : MonoBehaviour
 {
-    [SerializeField] GameManager gameManager;
+   
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("CollectorBoundry"))
         {
-            gameManager.BoundryActive();
+            var player = other.gameObject.GetComponentInParent<PlayerController>();
+            player.BoundryActive();
         }
     }
 }

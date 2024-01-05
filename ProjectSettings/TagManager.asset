@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CollectorBoundry
   - BallCounter
+  - Ball
   layers:
   - Default
   - TransparentFX
