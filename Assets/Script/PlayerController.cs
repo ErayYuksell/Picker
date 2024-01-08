@@ -14,6 +14,14 @@ public class PlayerController : MonoBehaviour
         checkBallController = gameObject.GetComponentInChildren<CheckBallController>();
     }
 
+    public void PlayerMoveOn()
+    {
+        playerState = true;
+    }
+    public void PlayerDontMove()
+    {
+        playerState = false;
+    }
 
     void Update()
     {
@@ -45,8 +53,5 @@ public class PlayerController : MonoBehaviour
         var gameManager = GameManager.Instance;
         gameManager.PhaseControl();
     }
-    public void PlayerMoveOn()
-    {
-        playerState = true;
-    }
+   
 }

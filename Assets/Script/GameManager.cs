@@ -15,7 +15,10 @@ public class BallZone
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+    [SerializeField] PlayerController playerController;
     int NumberOfBallScored = 0;
+    int totalBallZones;
+    int currentBallZones = 0;
     [SerializeField] public List<BallZone> BallZones = new List<BallZone>();
 
     private void Awake()
@@ -31,28 +34,44 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        BallZones[0].numberText.text = NumberOfBallScored + "/" + BallZones[0].ballToThrow;
+        for (int i = 0; i < BallZones.Count; i++)
+        {
+            BallZones[i].numberText.text = NumberOfBallScored + "/" + BallZones[i].ballToThrow;
+        }
+       
+        totalBallZones = BallZones.Count - 1;
     }
 
     public void BallCountAndWrite()
     {
         NumberOfBallScored += 1;
-        BallZones[0].numberText.text = NumberOfBallScored + "/" + BallZones[0].ballToThrow;
+        BallZones[currentBallZones].numberText.text = NumberOfBallScored + "/" + BallZones[currentBallZones].ballToThrow;
     }
     public void PhaseControl()
     {
-        if (NumberOfBallScored >= BallZones[0].ballToThrow)
+        if (NumberOfBallScored >= BallZones[currentBallZones].ballToThrow)
         {
-            Debug.Log("Falan true");
-            BallZones[0].animator.Play("ElevatorAnim");
-            foreach (var item in BallZones[0].phaseBalls)
+            BallZones[currentBallZones].animator.Play("ElevatorAnim");
+            foreach (var item in BallZones[currentBallZones].phaseBalls)
             {
                 item.SetActive(false);
+            }
+
+            if (currentBallZones == totalBallZones)
+            {
+                playerController.PlayerDontMove();
+                Time.timeScale = 0;
+                Debug.Log("Oyun Bitti");
+            }
+            else
+            {
+                currentBallZones++;
+                NumberOfBallScored = 0;
             }
         }
         else
         {
-            Debug.Log("Falan else");
+            Debug.Log("Kaybettin");
         }
     }
 
