@@ -361,6 +361,7 @@
 -analyzer:"C:/Program Files/Unity/Hub/Editor/2022.3.6f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
 "Assets/Script/BallCounter.cs"
 "Assets/Script/CheckBallController.cs"
+"Assets/Script/ElevatorController.cs"
 "Assets/Script/GameManager.cs"
 "Assets/Script/Messenger.cs"
 "Assets/Script/PlayerController.cs"

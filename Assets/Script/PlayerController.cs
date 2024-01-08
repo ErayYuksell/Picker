@@ -41,8 +41,12 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator PhaseControlDelayed()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(2);
         var gameManager = GameManager.Instance;
         gameManager.PhaseControl();
+    }
+    public void PlayerMoveOn()
+    {
+        playerState = true;
     }
 }

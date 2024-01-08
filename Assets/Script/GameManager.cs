@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
         if (NumberOfBallScored >= BallZones[0].ballToThrow)
         {
             Debug.Log("Falan true");
-
+            BallZones[0].animator.Play("ElevatorAnim");
             foreach (var item in BallZones[0].phaseBalls)
             {
                 item.SetActive(false);
