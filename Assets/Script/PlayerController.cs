@@ -32,17 +32,19 @@ public class PlayerController : MonoBehaviour
             {
                 if (Input.GetKey(KeyCode.A))
                 {
-                    transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x - 1f, transform.position.y, transform.position.z), 0.05f);
+                    transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x - 1f, transform.position.y, transform.position.z), 0.01f);
                 }
                 if (Input.GetKey(KeyCode.D))
                 {
-                    transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x + 1f, transform.position.y, transform.position.z), 0.05f);
+                    transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x + 1f, transform.position.y, transform.position.z), 0.01f);
                 }
             }
         }
     }
     public void BoundryActive() // toplari bosaltcagim yere geldigimde 
     {
+        var gameManager = GameManager.Instance;
+        gameManager.CollectorPaletOff();
         playerState = false;
         StartCoroutine(PhaseControlDelayed());
         checkBallController.AddForceBall();

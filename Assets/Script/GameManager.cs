@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     [SerializeField] PlayerController playerController;
+    [SerializeField] GameObject[] collectorPalets;
+    bool isHavePalets;
+    [SerializeField] GameObject[] bonusBalls; 
     int NumberOfBallScored = 0;
     int totalBallZones;
     int currentBallZones = 0;
@@ -38,7 +41,7 @@ public class GameManager : MonoBehaviour
         {
             BallZones[i].numberText.text = NumberOfBallScored + "/" + BallZones[i].ballToThrow;
         }
-       
+
         totalBallZones = BallZones.Count - 1;
     }
 
@@ -67,12 +70,35 @@ public class GameManager : MonoBehaviour
             {
                 currentBallZones++;
                 NumberOfBallScored = 0;
+                if (isHavePalets)
+                {
+                    collectorPalets[0].SetActive(true);
+                    collectorPalets[1].SetActive(true);
+                }
             }
         }
         else
         {
             Debug.Log("Kaybettin");
         }
+    }
+    public void CollectorPaletsOn()
+    {
+        isHavePalets = true;
+        collectorPalets[0].SetActive(true);
+        collectorPalets[1].SetActive(true);
+    }
+    public void CollectorPaletOff()
+    {
+        if (isHavePalets)
+        {
+            collectorPalets[0].SetActive(false);
+            collectorPalets[1].SetActive(false);
+        }
+    }
+    public void BonusBallsActive(int index)
+    {
+        bonusBalls[index].SetActive(true);
     }
 
 }
